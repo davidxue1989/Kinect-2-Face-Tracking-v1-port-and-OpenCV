@@ -4,10 +4,10 @@ Kinect-2-Face-Tracking-v1-port-and-OpenCV
 “This is based on preliminary software and/or hardware, subject to change.”
 
 OVERVIEW:
-The MFC part of the project is emtpy, and can be ignored.
 FT2OpenCVHelpers folder contains the classes for managing Kinect 2, a port of Face Tracker 1 to work with Kinect 2, and an interface to OpenCV by converting the image frames into Mat.
 Since we are using a hack that uses the old Face Tracker library made for Kinect 1, it require us to also connecdt (and open) a Kinect 1 camera during runtime.
 Thus a class for managing Kinect 1 is also included.
+The MFC part of the project is emtpy, and can be ignored.
 
 METHOD:
 For Face Tracker 1 to work with Kinect 2, it involved:
