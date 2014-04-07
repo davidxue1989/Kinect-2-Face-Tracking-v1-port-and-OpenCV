@@ -1,4 +1,4 @@
-Kinect-2-Face-Tracking--v1-port--and-OpenCV
+Kinect-2-Face-Tracking-v1-port-and-OpenCV
 ===========================================
 
 “This is based on preliminary software and/or hardware, subject to change.”
