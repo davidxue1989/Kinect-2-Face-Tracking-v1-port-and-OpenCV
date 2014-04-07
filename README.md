@@ -16,7 +16,8 @@ For Face Tracker 1 to work with Kinect 2, it involved:
 (note: no transformation was made, just cropping the image from top left corner for the new size.  For the depth image where the new size is larger, I filled in the blanks with 0 values)
 - supplying the mapping function DepthToColorMapper to Face Tracker during Initialize
 - porting the GetClosestHint function for the Kinect 2's Body frames
-- the new focal lengths used are 1064.36f for color and 364.38f for depth, as suggested by Stephen Schieberl
+- the new focal lengths used are 1064.36f for color and 364.38f for depth, as suggested by Stephen Schieberl:
+
 "I broke it up into horizontal FOV in radians (ax), vertical (ay), width (w), and height(h).
 
 float fx = w / ( tan( ax * 0.5f ) * 2.0f );
