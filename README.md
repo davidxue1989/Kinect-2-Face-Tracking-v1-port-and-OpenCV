@@ -29,4 +29,5 @@ ay = 53.7999992
 Which results in a focal length of 1064.3584 for color. 
 I get 364.378265 for depth using the same function. "
 
-
+ENVIRONMENT SETUP:
+I'm using locally compiled x64 OpenCV binaries C:\SDKs\opencv\build3\lib\Debug[Release].  You should change this to your OpenCV lib binaries folder
