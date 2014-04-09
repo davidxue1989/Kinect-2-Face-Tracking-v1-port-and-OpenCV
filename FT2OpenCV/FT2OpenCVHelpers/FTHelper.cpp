@@ -239,11 +239,14 @@ void FTHelper::copyBuffer(IFTImage *src, IFTImage *dst, bool isColorNotDepth) {
 	//	Sh = 424;
 	//}
 
+	int ox = Kinect2Sensor::v1to2offsetColorWidth;
+	int oy = Kinect2Sensor::v1to2offsetColorHeight;
+
 	for (int i = 0; i < H; i++)
 	{
 		if (isColorNotDepth)
 			for (int j = 0; j < W * 4; j++)
-				pDBuff[i * Dw * 4 + j] = pSBuff[i * Sw * 4 + j];
+				pDBuff[i * Dw * 4 + j] = pSBuff[(i + oy) * Sw * 4 + (j + ox * 4)];
 		else
 			for (int j = 0; j < W * 2; j++)
 				pDBuff[i * Dw * 2 + j] = pSBuff[i * Sw * 2 + j];
@@ -354,8 +357,9 @@ DWORD WINAPI FTHelper::FaceTrackingThread()
         CheckCameraInput();
         //InvalidateRect(m_hWnd, NULL, FALSE);
         //UpdateWindow(m_hWnd);
-        //Sleep(16);
-		Sleep(67); //15 fps
+        Sleep(16); //60fps //note: should always round down
+		//Sleep(33); //30fps
+		//Sleep(66); //15 fps
     }
 
     m_pFaceTracker->Release();
@@ -403,7 +407,10 @@ HRESULT FTHelper::DepthToColorMapper(UINT depthFrameWidth, UINT depthFrameHeight
 
 	HRESULT hr = g_Kinect2Sensor->m_coordinateMapper->MapDepthPointToColorSpace(DepthSpacePoint(depthPoint), depthZ, &colorPoint);
 
-	if (SUCCEEDED(hr) && colorPoint.X >= 0 && colorPoint.X <= colorFrameWidth &&colorPoint.Y >= 0 && colorPoint.Y <= colorFrameHeight)
+	colorPoint.X -= Kinect2Sensor::v1to2offsetColorWidth;
+	colorPoint.Y -= Kinect2Sensor::v1to2offsetColorHeight;
+
+	if (SUCCEEDED(hr) && colorPoint.X >= 0 && colorPoint.X < colorFrameWidth &&colorPoint.Y >= 0 && colorPoint.Y < colorFrameHeight)
 	{
 		*pColorX = colorPoint.X;
 		*pColorY = colorPoint.Y;

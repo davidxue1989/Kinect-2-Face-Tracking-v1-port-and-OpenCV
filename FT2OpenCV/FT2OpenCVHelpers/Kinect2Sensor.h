@@ -16,17 +16,18 @@ class Kinect2Sensor
 {
 public:
 	//kinect 2.0 resolutions:
-	static const int        cColorWidth = 1920; //1920x1080 = 16:9;  1440x1080 = 4:3
+	static const int        cColorWidth = 1920;
 	static const int        cColorHeight = 1080;
-	static const int        cDepthWidth = 512; //512x424 = 64:53;  512x384 = 4:3
+	static const int        cDepthWidth = 512;
 	static const int        cDepthHeight = 424;
 	//kinect 1.0 resolutions:
-	//, m_depthRes(NUI_IMAGE_RESOLUTION_320x240) //4:3
-	//, m_colorRes(NUI_IMAGE_RESOLUTION_640x480) //4:3
 	static const int cColorWidth1 = 1280;
 	static const int cColorHeight1 = 960;
 	static const int cDepthWidth1 = 640;
 	static const int cDepthHeight1 = 480;
+	//offsets to center the cropped image when putting Kinect 2 image into Kinect 1 resolutions
+	static const int v1to2offsetColorWidth = (cColorWidth - cColorWidth1) / 2;
+	static const int v1to2offsetColorHeight = (cColorHeight - cColorHeight1) / 2;
 
     Kinect2Sensor();
     ~Kinect2Sensor();
@@ -53,7 +54,6 @@ public:
 	UINT16*					m_pDepth;
 	BYTE*					m_pBodyIndex;
 	IBody**					m_ppBodies;
-	//dxtodo: do infrared and skeleton
 
 	IFTImage*   m_VideoBuffer;
 	IFTImage*   m_DepthBuffer;
@@ -105,61 +105,6 @@ public:
 	static DWORD WINAPI ProcessThread(PVOID pParam);
 	HANDLE      m_hThNuiProcess;
 	HANDLE      m_hEvNuiProcessStop;
-
-
-	//HRESULT Init(NUI_IMAGE_TYPE depthType, NUI_IMAGE_RESOLUTION depthRes, BOOL bNearMode, BOOL bFallbackToDefault, NUI_IMAGE_TYPE colorType, NUI_IMAGE_RESOLUTION colorRes, BOOL bSeatedSkeletonMode);
-    /*HRESULT     GetVideoConfiguration(FT_CAMERA_CONFIG* videoConfig);
-    HRESULT     GetDepthConfiguration(FT_CAMERA_CONFIG* depthConfig);
-
-    IFTImage*   GetVideoBuffer(){ return(m_VideoBuffer); };
-    IFTImage*   GetDepthBuffer(){ return(m_DepthBuffer); };
-    float       GetZoomFactor() { return(m_ZoomFactor); };
-    POINT*      GetViewOffSet() { return(&m_ViewOffset); };
-
-    bool        IsTracked(UINT skeletonId) { return(m_SkeletonTracked[skeletonId]);};
-    FT_VECTOR3D NeckPoint(UINT skeletonId) { return(m_NeckPoint[skeletonId]);};
-    FT_VECTOR3D HeadPoint(UINT skeletonId) { return(m_HeadPoint[skeletonId]);};*/
-
-public:
-	//// Image stream data
-	//IFTImage*   m_VideoBuffer;
-	//IFTImage*   m_DepthBuffer;
-	//INT m_colorBufferSize;
-	//INT m_colorBufferPitch;
-	//INT m_depthBufferSize;
-	//INT m_depthBufferPitch;
-	//// Image stream resolution information
-	//NUI_IMAGE_RESOLUTION m_colorResolution;
-	//NUI_IMAGE_RESOLUTION m_depthResolution;
-
-	//FrameRateTracker m_colorFrameRateTracker;
-	//FrameRateTracker m_depthFrameRateTracker;
-	//FrameRateTracker m_skeletonFrameRateTracker;
-
- //   FT_VECTOR3D m_NeckPoint[NUI_SKELETON_COUNT];
- //   FT_VECTOR3D m_HeadPoint[NUI_SKELETON_COUNT];
-//    bool        m_SkeletonTracked[NUI_SKELETON_COUNT];
-    //FLOAT       m_ZoomFactor;   // video frame zoom factor (it is 1.0f if there is no zoom)
-    //POINT       m_ViewOffset;   // Offset of the view from the top left corner.
-
-    //HANDLE      m_hNextDepthFrameEvent;
-    //HANDLE      m_hNextVideoFrameEvent;
-    //HANDLE      m_hNextSkeletonEvent;
-    //HANDLE      m_pDepthStreamHandle;
-    //HANDLE      m_pVideoStreamHandle;
-
-    //bool        m_bNuiInitialized; 
-    //int         m_FramesTotal;
-    //int         m_SkeletonTotal;
-    
-    //void GotVideoAlert();
-    //void GotDepthAlert();
-    //void GotSkeletonAlert();
-
-
-	//virtual HRESULT GetColorData(NUI_LOCKED_RECT lockedRect) { return S_OK;  };
-	//virtual HRESULT GetDepthData(NUI_LOCKED_RECT lockedRect) { return S_OK; };
-	//virtual HRESULT GetDepthDataAsArgb() { return S_OK; };
 };
 
 
